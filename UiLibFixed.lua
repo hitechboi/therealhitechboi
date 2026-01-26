@@ -1,6 +1,3 @@
--- ==========================
--- Matcha Drawing UI Library
--- ==========================
 local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
@@ -16,9 +13,6 @@ local function newDrawing(type, props)
     return obj
 end
 
--- ==========================
--- Window
--- ==========================
 function UiLib:CreateWindow(title, size)
     local win = {}
     setmetatable(win, self)
@@ -92,9 +86,6 @@ function UiLib:CreateWindow(title, size)
     return win
 end
 
--- ==========================
--- Button
--- ==========================
 function UiLib:AddButton(text, callback)
     local btn = {}
     btn.Parent = self
@@ -136,9 +127,6 @@ function UiLib:AddButton(text, callback)
     table.insert(self.Elements, btn)
 end
 
--- ==========================
--- Toggle
--- ==========================
 function UiLib:AddToggle(text, default, callback)
     local toggle = {}
     toggle.Parent = self
