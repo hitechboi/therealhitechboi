@@ -194,5 +194,4 @@ function UiLib:AddToggle(text, default, callback)
     table.insert(self.Elements, toggle)
 end
 
--- 🔹 THIS LINE IS CRUCIAL 🔹
 return UiLib
