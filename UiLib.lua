@@ -5,9 +5,6 @@ local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
--- Wait for camera
-repeat task.wait() until workspace.CurrentCamera
-
 local UiLib = {}
 UiLib.__index = UiLib
 
@@ -197,4 +194,5 @@ function UiLib:AddToggle(text, default, callback)
     table.insert(self.Elements, toggle)
 end
 
+-- 🔹 THIS LINE IS CRUCIAL 🔹
 return UiLib
