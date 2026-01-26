@@ -3,12 +3,10 @@
 -- ==========================
 local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
 
 local UiLib = {}
 UiLib.__index = UiLib
 
--- Utility to create drawings
 local function newDrawing(type, props)
     local obj = Drawing.new(type)
     for k, v in pairs(props or {}) do
@@ -37,7 +35,6 @@ function UiLib:CreateWindow(title, size)
     win.Dragging = false
     win.Elements = {}
 
-    -- Window frame
     win.Frame = newDrawing("Square", {
         Size = size,
         Position = position,
@@ -45,7 +42,6 @@ function UiLib:CreateWindow(title, size)
         Filled = true
     })
 
-    -- Title bar
     win.TitleBar = newDrawing("Square", {
         Size = Vector2.new(size.X, 30),
         Position = position,
@@ -53,7 +49,6 @@ function UiLib:CreateWindow(title, size)
         Filled = true
     })
 
-    -- Title text
     win.Title = newDrawing("Text", {
         Text = title or "UiLib",
         Size = 16,
@@ -62,7 +57,6 @@ function UiLib:CreateWindow(title, size)
         Outline = true
     })
 
-    -- Drag logic
     UIS.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             local mouse = UIS:GetMouseLocation()
@@ -86,7 +80,6 @@ function UiLib:CreateWindow(title, size)
             win.Position = mouse - win.DragOffset
         end
 
-        -- Update positions
         win.Frame.Position = win.Position
         win.TitleBar.Position = win.Position
         win.Title.Position = win.Position + Vector2.new(10, 7)
@@ -104,6 +97,8 @@ end
 -- ==========================
 function UiLib:AddButton(text, callback)
     local btn = {}
+    btn.Parent = self
+
     local y = 40 + (#self.Elements * 35)
 
     btn.Box = newDrawing("Square", {
@@ -122,7 +117,7 @@ function UiLib:AddButton(text, callback)
     })
 
     function btn:Update()
-        btn.Box.Position = self.Position + Vector2.new(10, y)
+        btn.Box.Position = self.Parent.Position + Vector2.new(10, y)
         btn.Text.Position = btn.Box.Position + Vector2.new(10, 7)
     end
 
@@ -146,6 +141,8 @@ end
 -- ==========================
 function UiLib:AddToggle(text, default, callback)
     local toggle = {}
+    toggle.Parent = self
+
     local y = 40 + (#self.Elements * 35)
     toggle.State = default or false
 
@@ -172,7 +169,7 @@ function UiLib:AddToggle(text, default, callback)
     })
 
     function toggle:Update()
-        toggle.Box.Position = self.Position + Vector2.new(10, y)
+        toggle.Box.Position = self.Parent.Position + Vector2.new(10, y)
         toggle.Text.Position = toggle.Box.Position + Vector2.new(10, 7)
         toggle.Indicator.Position = toggle.Box.Position + Vector2.new(toggle.Box.Size.X - 30, 5)
     end
